@@ -4,9 +4,9 @@ namespace CalculatorCodingChallenge.Extensions
 {
     public static class IntExtensions
     {
-        public static int TryParse(this string Source)
+        public static int TryParseWithLimit(this string Source, int limit = 1000)
         {
-            if (int.TryParse(Source, out int result))
+            if (int.TryParse(Source, out int result) && result <= limit)
             {
                 return result;
             }
