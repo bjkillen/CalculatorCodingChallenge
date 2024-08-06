@@ -12,6 +12,7 @@
     <None Remove="Models\" />
     <None Remove="Extensions\" />
     <None Remove="Models\Calculator\" />
+    <None Remove=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
