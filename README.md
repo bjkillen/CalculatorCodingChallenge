@@ -18,4 +18,4 @@ Restaurant365 Code Challenge - String Calculator from Blaine Killen
 
 ## Requirements
 * Requirements will be completed with the corresponding Pull Request
-* Pull Requests are branched as "feature/requirement-#" andtitled as "Requirement #"
+* Pull Requests are branched as "feature/requirement-#" and titled as "Requirement #"
