@@ -80,4 +80,26 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void SupportsSplitByNewline()
+    {
+        int expected = 6;
+        string input = "1\n2\n3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void SupportsSplitByNewlineAndCommaMixed()
+    {
+        int expected = 6;
+        string input = "1\n2,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }
