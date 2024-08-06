@@ -10,4 +10,3 @@ namespace CalculatorCodingChallenge.Models.Calculator
 		public abstract int Calculate(int[] nums);
 	}
 }
-
