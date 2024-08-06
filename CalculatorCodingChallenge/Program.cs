@@ -1,4 +1,5 @@
 ﻿using CalculatorCodingChallenge.Controllers;
+using CalculatorCodingChallenge.Exceptions;
 
 public class Program
 {
@@ -7,7 +8,7 @@ public class Program
         Console.Clear();
 
         Console.WriteLine("Welcome to my calculator!");
-        Console.WriteLine("Please provide numbers for me to add, " +
+        Console.WriteLine("Please provide only positive numbers for me to add, " +
             "separated by a comma. Example 1,2");
 
         string? inputText = Console.ReadLine();
@@ -17,6 +18,10 @@ public class Program
             int result = BaseController.Compute(inputText);
 
             Console.WriteLine($"Result: {result}");
+        }
+        catch (NoNegativeNumbersException e)
+        {
+            Console.WriteLine(e.Message);
         }
         catch (Exception)
         {
