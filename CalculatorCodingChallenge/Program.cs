@@ -1,5 +1,4 @@
-﻿using CalculatorCodingChallenge.Models;
-using CalculatorCodingChallenge.Models.Calculator;
+﻿using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Models.Exceptions;
 
 public class Program
@@ -14,18 +13,10 @@ public class Program
 
         string? inputText = Console.ReadLine();
 
-        int[] parsedInputText = StringInputParser.ParseInput(inputText);
-
-        InputArgsCountChecker inputChecker = new() { MaxNumbersAllowed = 2 };
-
         // Method will throw exception if provided numbers exceed MaxNumbersAllowed
         try
         {
-            inputChecker.ValidateInput(parsedInputText);
-
-            AddCalculator calculator = new();
-
-            int result = calculator.Calculate(parsedInputText);
+            int result = BaseController.Compute(inputText);
 
             Console.WriteLine($"Result: {result}");
         }

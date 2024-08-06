@@ -2,7 +2,7 @@
 
 namespace CalculatorCodingChallengeTests;
 
-public class AddCaclulatorTest
+public class AddCalculatorTest
 {
     [Fact]
     public void OneValueReturn20()

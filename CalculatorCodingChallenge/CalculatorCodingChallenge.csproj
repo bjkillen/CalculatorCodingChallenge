@@ -13,11 +13,13 @@
     <None Remove="Extensions\" />
     <None Remove="Models\Calculator\" />
     <None Remove=".gitignore" />
+    <None Remove="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="Extensions\" />
     <Folder Include="Models\Calculator\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\.editorconfig" />
