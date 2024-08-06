@@ -39,10 +39,21 @@ public class BaseControllerTests
     }
 
     [Fact]
-    public void TwoPositiveValuesReturn5001()
+    public void MultipleValuesOneGreaterThan1000Return8()
     {
-        int expected = 5001;
-        string input = "5000,1";
+        int expected = 8;
+        string input = "2,1001,6";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void MultipleValuesOneEqual1000Return1008()
+    {
+        int expected = 1008;
+        string input = "2,1000,6";
 
         int actual = BaseController.Compute(input);
 

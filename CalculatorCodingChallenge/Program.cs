@@ -10,6 +10,8 @@ public class Program
         Console.WriteLine("Welcome to my calculator!");
         Console.WriteLine("Please provide only positive numbers for me to add, " +
             "separated by a comma. Example 1,2");
+        Console.WriteLine("Please note, values greater than 1000 " +
+            "will be invalidated and turned to 0.");
 
         string? inputText = Console.ReadLine();
 
