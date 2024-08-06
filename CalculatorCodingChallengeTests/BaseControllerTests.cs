@@ -58,8 +58,12 @@ public class BaseControllerTests
 
         var ex = Assert.Throws<NoNegativeNumbersException>(act);
 
+        int[] negativeNumbers = new int[] { -3, -10 };
+        string expectedExceptionMessage =
+            new NoNegativeNumbersException(negativeNumbers).Message;
+
         Assert.Equal(
-            "Please provide only positive numbers. These numbers are in violation: -3,-10",
+            expectedExceptionMessage,
             ex.Message
         );
     }
