@@ -15,7 +15,7 @@ namespace CalculatorCodingChallenge.Models
         {
             if (text == null)
             {
-                return new int[]{0};
+                return new int[] { 0 };
             }
 
             int[] numbers = text.Split(',')
