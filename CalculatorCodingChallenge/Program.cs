@@ -25,7 +25,7 @@ public class Program
         }
         catch (Exception)
         {
-            Console.WriteLine("Unknown error occured");
+            Console.WriteLine("Unknown error occurred");
         }
 
         // Wait for the user to respond before closing.
