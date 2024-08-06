@@ -15,10 +15,6 @@ namespace CalculatorCodingChallenge.Controllers
         {
             int[] parsedInputText = StringInputParser.ParseInput(inputText);
 
-            InputArgsCountChecker inputChecker = new() { MaxNumbersAllowed = 2 };
-
-            inputChecker.ValidateInput(parsedInputText);
-
             AddCalculator calculator = new();
 
             int result = calculator.Calculate(parsedInputText);

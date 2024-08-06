@@ -1,5 +1,4 @@
 ﻿using CalculatorCodingChallenge.Controllers;
-using CalculatorCodingChallenge.Models.Exceptions;
 
 public class Program
 {
@@ -8,7 +7,7 @@ public class Program
         Console.Clear();
 
         Console.WriteLine("Welcome to my calculator!");
-        Console.WriteLine("Please provide up to two numbers for me to add, " +
+        Console.WriteLine("Please provide numbers for me to add, " +
             "separated by a comma. Example 1,2");
 
         string? inputText = Console.ReadLine();
@@ -18,10 +17,6 @@ public class Program
             int result = BaseController.Compute(inputText);
 
             Console.WriteLine($"Result: {result}");
-        }
-        catch (TooManyNumbersProvidedException e)
-        {
-            Console.WriteLine(e.Message);
         }
         catch (Exception)
         {
