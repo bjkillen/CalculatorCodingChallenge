@@ -17,5 +17,5 @@ Restaurant365 Code Challenge - String Calculator from Blaine Killen
     * In Visual Studio, Git -> Pull
 
 ## Requirements
-* Requirements will be completed with the corresponding Pull Request
+* Requirements will be completed with the corresponding Pull Request number
 * Pull Requests are branched as "feature/requirement-#" andtitled as "Requirement #"
