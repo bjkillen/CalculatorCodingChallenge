@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CalculatorCodingChallenge.Exceptions;
 using CalculatorCodingChallenge.Extensions;
 
 namespace CalculatorCodingChallenge.Models
@@ -19,9 +20,21 @@ namespace CalculatorCodingChallenge.Models
                 return new int[] { 0 };
             }
 
+            // TODO: Refactor this block to make one pass looking at each char,
+            // parsing previous chars when delimeter found and performing
+            // negative check in the same loop pass
+            //
+            // This will improve performance in the case requirements change
             int[] numbers = text.Split(separators)
                             .Select(numText => numText.Trim().TryParse())
                             .ToArray();
+
+            int[] negativeNumbers = numbers.Where(n => n < 0).ToArray();
+
+            if (negativeNumbers.Length > 0)
+            {
+                throw new NoNegativeNumbersException(negativeNumbers);
+            }
 
             return numbers;
         }

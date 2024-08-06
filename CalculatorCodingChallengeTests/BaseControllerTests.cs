@@ -1,4 +1,5 @@
 ﻿using CalculatorCodingChallenge.Controllers;
+using CalculatorCodingChallenge.Exceptions;
 
 namespace CalculatorCodingChallengeTests;
 
@@ -49,14 +50,18 @@ public class BaseControllerTests
     }
 
     [Fact]
-    public void PositiveAndNegativeValueReturn1()
+    public void PositiveAndNegativeValuesThrowsNoNegativeNumbersException()
     {
-        int expected = 1;
-        string input = "4,-3";
+        string input = "4,-3,0,-10";
 
-        int actual = BaseController.Compute(input);
+        Action act = () => BaseController.Compute(input);
 
-        Assert.Equal(expected, actual);
+        var ex = Assert.Throws<NoNegativeNumbersException>(act);
+
+        Assert.Equal(
+            "Please provide only positive numbers. These numbers are in violation: -3,-10",
+            ex.Message
+        );
     }
 
     [Fact]
