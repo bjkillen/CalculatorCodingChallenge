@@ -13,7 +13,6 @@ public class Program
 
         string? inputText = Console.ReadLine();
 
-        // Method will throw exception if provided numbers exceed MaxNumbersAllowed
         try
         {
             int result = BaseController.Compute(inputText);
