@@ -1,5 +1,4 @@
 ﻿using CalculatorCodingChallenge.Controllers;
-using CalculatorCodingChallenge.Models.Exceptions;
 
 namespace CalculatorCodingChallengeTests;
 
@@ -72,12 +71,13 @@ public class BaseControllerTests
     }
 
     [Fact]
-    public void MoreThanTwoNumbersThrowsTooManyNumbersProvidedException()
+    public void MultipleValuesReturn78()
     {
-        string input = "1,2,3";
+        int expected = 78;
+        string input = "1,2,3,4,5,6,7,8,9,10,11,12";
 
-        void act() => BaseController.Compute(input);
+        int actual = BaseController.Compute(input);
 
-        Assert.Throws<TooManyNumbersProvidedException>(act);
+        Assert.Equal(expected, actual);
     }
 }
