@@ -21,7 +21,4 @@
     <Folder Include="Models\Calculator\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\.editorconfig" />
-  </ItemGroup>
 </Project>
