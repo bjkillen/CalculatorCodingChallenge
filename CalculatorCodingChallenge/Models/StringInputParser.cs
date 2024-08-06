@@ -26,7 +26,7 @@ namespace CalculatorCodingChallenge.Models
             //
             // This will improve performance in the case requirements change
             int[] numbers = text.Split(separators)
-                            .Select(numText => numText.Trim().TryParse())
+                            .Select(numText => numText.Trim().TryParseWithLimit())
                             .ToArray();
 
             int[] negativeNumbers = numbers.Where(n => n < 0).ToArray();
