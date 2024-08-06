@@ -15,3 +15,7 @@ Restaurant365 Code Challenge - String Calculator from Blaine Killen
     * "git pull origin main" in Terminal at top level of project
     * **or**
     * In Visual Studio, Git -> Pull
+
+## Requirements
+* Requirements will be completed with the corresponding Pull Request number
+* Pull Requests are branched as "feature/requirement-#" andtitled as "Requirement #"
