@@ -10,6 +10,8 @@ namespace CalculatorCodingChallenge.Models
         {
         }
 
+        private static readonly char[] separators = new Char[] { ',', '\n' };
+
         public static int[] ParseInput(string? text)
         {
             if (text == null)
@@ -17,7 +19,7 @@ namespace CalculatorCodingChallenge.Models
                 return new int[] { 0 };
             }
 
-            int[] numbers = text.Split(',')
+            int[] numbers = text.Split(separators)
                             .Select(numText => numText.Trim().TryParse())
                             .ToArray();
 
