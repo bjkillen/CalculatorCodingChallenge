@@ -10,7 +10,7 @@ public class Program
 
         Console.WriteLine("Welcome to my calculator!");
         Console.WriteLine("Please provide up to two numbers for me to add, " +
-            "seperated by a comma. Example 1,2");
+            "separated by a comma. Example 1,2");
 
         string? inputText = Console.ReadLine();
 
