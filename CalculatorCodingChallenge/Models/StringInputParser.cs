@@ -12,9 +12,9 @@ namespace CalculatorCodingChallenge.Models
         {
         }
 
-        private static readonly HashSet<string> baseSeparators = new() { ",", "\n" };
+        private readonly HashSet<string> separators = new() { ",", "\n" };
 
-        public static int[] ParseInput(string? text)
+        public int[] ParseInput(string? text)
         {
             if (text == null)
             {
@@ -26,15 +26,13 @@ namespace CalculatorCodingChallenge.Models
             RegexDelimiterResult matchedSimpleDelimiter =
                 RegexHelper.MatchesSimpleDelimiterAndCleansIfMatch(sanitizedInputText);
 
-            HashSet<string> combinedSeparators = new (baseSeparators);
-
             if (matchedSimpleDelimiter.Delimiter != null)
             {
-                combinedSeparators.Add(matchedSimpleDelimiter.Delimiter);
+                separators.Add(matchedSimpleDelimiter.Delimiter);
 
                 return ParseInputNoDelimiter(
                     matchedSimpleDelimiter.CleanedText,
-                    combinedSeparators.ToArray()
+                    separators.ToArray()
                 );
             }
 
@@ -43,15 +41,15 @@ namespace CalculatorCodingChallenge.Models
 
             if (matchedBracketedDelimiter.Delimiter != null)
             {
-                combinedSeparators.Add(matchedBracketedDelimiter.Delimiter);
+                separators.Add(matchedBracketedDelimiter.Delimiter);
 
                 return ParseInputNoDelimiter(
                     matchedBracketedDelimiter.CleanedText,
-                    combinedSeparators.ToArray()
+                    separators.ToArray()
                 );
             }
 
-            return ParseInputNoDelimiter(sanitizedInputText, combinedSeparators.ToArray());
+            return ParseInputNoDelimiter(sanitizedInputText, separators.ToArray());
         }
 
         private static int[] ParseInputNoDelimiter(string text, string[] separators)
