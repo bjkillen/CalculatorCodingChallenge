@@ -9,7 +9,7 @@ public class Program
 
         Console.WriteLine("Welcome to my calculator!");
         Console.WriteLine("Please provide only positive numbers for me to add, " +
-            "separated by a comma. Example 1,2");
+            "separated by a comma or \\n. Example 1,2\\n3");
         Console.WriteLine("Please note, values greater than 1000 " +
             "will be invalidated and turned to 0.");
         Console.WriteLine("You can provide custom delimiters in the following formats\n" +
