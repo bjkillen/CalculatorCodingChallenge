@@ -16,14 +16,16 @@ public class Program
             "-- list of multiple character delimiters /[{delimiter1}][{delimiter2}]...\\n{numbers}\n" +
             "-- single character delimiter //{delimiter}\\n{numbers}\n" +
             "-- empty or invalid delimiters will be invalidated");
+        Console.WriteLine("");
 
         string? inputText = Console.ReadLine();
 
         try
         {
-            int result = BaseController.Compute(inputText);
+            ComputationResult result = BaseController.Compute(inputText);
 
-            Console.WriteLine($"Result: {result}");
+            Console.WriteLine($"Result: {result.Result}");
+            Console.WriteLine($"Formula: {result.FullFormula}");
         }
         catch (NoNegativeNumbersException e)
         {
@@ -35,6 +37,7 @@ public class Program
         }
 
         // Wait for the user to respond before closing.
+        Console.WriteLine("");
         Console.Write("Press any key to close the Calculator console app...");
         Console.ReadKey();
     }
