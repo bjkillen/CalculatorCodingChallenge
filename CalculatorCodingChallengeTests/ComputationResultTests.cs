@@ -3,8 +3,8 @@ using CalculatorCodingChallenge.Controllers;
 
 namespace CalculatorCodingChallengeTests
 {
-	public class ComputationResultTests
-	{
+    public class ComputationResultTests
+    {
         [Fact]
         public void FullFormulaComputesCorrectly()
         {
