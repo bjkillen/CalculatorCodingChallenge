@@ -36,8 +36,7 @@ namespace CalculatorCodingChallenge.Models
 
         public static RegexDelimiterResult MatchesSimpleDelimiterAndCleansIfMatch(string input)
         {
-            return MatchesRegexAndCleansIfMatch(
-                input, startingSimpleDelimiterPattern);
+            return MatchesRegexAndCleansIfMatch(input, startingSimpleDelimiterPattern);
         }
 
         public static RegexDelimitersResult MatchesBracketedDelimitersAndCleansIfMatch(string input)
