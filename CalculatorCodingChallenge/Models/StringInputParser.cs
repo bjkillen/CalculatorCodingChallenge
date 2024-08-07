@@ -12,10 +12,7 @@ namespace CalculatorCodingChallenge.Models
         {
         }
 
-        private static readonly string startingDelimiterPattern = @"^(//)(.)(\n)";
-        private static readonly Regex startingDelimiterRegex = new(StringInputParser.startingDelimiterPattern);
-
-        private static HashSet<string> separators = new() { ",", "\n" };
+        private static readonly HashSet<string> baseSeparators = new() { ",", "\n" };
 
         public static int[] ParseInput(string? text)
         {
@@ -26,33 +23,45 @@ namespace CalculatorCodingChallenge.Models
 
             string sanitizedInputText = text.Sanitize();
 
-            Match matchResult = startingDelimiterRegex.Match(sanitizedInputText);
+            RegexDelimiterResult matchedSimpleDelimiter =
+                RegexHelper.MatchesSimpleDelimiterAndCleansIfMatch(sanitizedInputText);
 
-            if (matchResult.Success)
+            HashSet<string> combinedSeparators = new (baseSeparators);
+
+            if (matchedSimpleDelimiter.Delimiter != null)
             {
-                Group middleMatchingGroup = matchResult.Groups[2];
+                combinedSeparators.Add(matchedSimpleDelimiter.Delimiter);
 
-                string delimeter = middleMatchingGroup.Value;
-                separators.Add(delimeter);
-
-                sanitizedInputText = Regex.Replace(
-                    sanitizedInputText,
-                    startingDelimiterPattern,
-                    ""
-                 );
+                return ParseInputNoDelimiter(
+                    matchedSimpleDelimiter.CleanedText,
+                    combinedSeparators.ToArray()
+                );
             }
 
-            return ParseInputNoDelimiter(sanitizedInputText);
+            RegexDelimiterResult matchedBracketedDelimiter =
+                RegexHelper.MatchesBracketedDelimiterAndCleansIfMatch(sanitizedInputText);
+
+            if (matchedBracketedDelimiter.Delimiter != null)
+            {
+                combinedSeparators.Add(matchedBracketedDelimiter.Delimiter);
+
+                return ParseInputNoDelimiter(
+                    matchedBracketedDelimiter.CleanedText,
+                    combinedSeparators.ToArray()
+                );
+            }
+
+            return ParseInputNoDelimiter(sanitizedInputText, combinedSeparators.ToArray());
         }
 
-        private static int[] ParseInputNoDelimiter(string text)
+        private static int[] ParseInputNoDelimiter(string text, string[] separators)
         {
             // TODO: Refactor this block to make one pass looking at each char,
             // parsing previous chars when delimeter found and performing
             // negative check in the same loop pass
             //
             // This will improve performance in the case requirements change
-            int[] numbers = text.Split(separators.ToArray(), StringSplitOptions.TrimEntries)
+            int[] numbers = text.Split(separators, StringSplitOptions.TrimEntries)
                             .Select(numText => numText.TryParseWithLimit())
                             .ToArray();
 

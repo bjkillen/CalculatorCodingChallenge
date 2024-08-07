@@ -168,10 +168,43 @@ public class BaseControllerTests
     }
 
     [Fact]
+    public void InvalidatesEmptyDelimiterReturns13()
+    {
+        int expected = 13;
+        string input = "//\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void InvalidatesMultiCharacterDelimiterReturns13()
     {
         int expected = 13;
         string input = "//##\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesMultiCharacterBracketedDelimiterReturns66()
+    {
+        int expected = 66;
+        string input = "//[***]\n11***22***33";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void InvalidatesEmptyBracketedDelimiterReturns0()
+    {
+        int expected = 0;
+        string input = "//[]\n11***22***33";
 
         int actual = BaseController.Compute(input);
 
