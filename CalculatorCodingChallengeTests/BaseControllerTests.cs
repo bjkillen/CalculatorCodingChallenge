@@ -221,4 +221,15 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void HandlesMultiCharacterMultiBracketedAndInvalidatesEmptyBracketedDelimiterReturns110()
+    {
+        int expected = 110;
+        string input = "//[*][!!][][r9r]\n11r9r22*hh*33!!44";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }

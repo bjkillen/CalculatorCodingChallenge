@@ -30,6 +30,7 @@ namespace CalculatorCodingChallenge.Models
     public static class RegexHelper
     {
         private static readonly string startingSimpleDelimiterPattern = @"^//(.)\n";
+
         private static readonly string startingBracketedDelimiterPattern = @"^//(\[.+\])+?\n";
         private static readonly string valueInsideBracketedListDelimiterPattern = @"\[([^\]]+)\]+";
 
