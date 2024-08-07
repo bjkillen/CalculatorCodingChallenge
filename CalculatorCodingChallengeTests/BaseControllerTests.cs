@@ -166,4 +166,15 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void InvalidatesMultiCharacterDelimiterReturns13()
+    {
+        int expected = 13;
+        string input = "//##\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }
