@@ -12,6 +12,10 @@ public class Program
             "separated by a comma. Example 1,2");
         Console.WriteLine("Please note, values greater than 1000 " +
             "will be invalidated and turned to 0.");
+        Console.WriteLine("You can provide custom delimiters in the following formats\n" +
+            "-- multiple character delimiter /[{delimiter}]\\n{numbers}\n" +
+            "-- single character delimiter //{delimiter}\\n{numbers}\n" +
+            "-- empty or invalid delimiters will be invalidated");
 
         string? inputText = Console.ReadLine();
 

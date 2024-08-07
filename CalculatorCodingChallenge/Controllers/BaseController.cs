@@ -13,7 +13,9 @@ namespace CalculatorCodingChallenge.Controllers
 
         public static int Compute(string? inputText)
         {
-            int[] parsedInputText = StringInputParser.ParseInput(inputText);
+            StringInputParser inputParser = new();
+
+            int[] parsedInputText = inputParser.ParseInput(inputText);
 
             AddCalculator calculator = new();
 
