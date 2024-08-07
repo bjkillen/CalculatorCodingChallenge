@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace CalculatorCodingChallenge.Extensions
 {
     public static class EnumerableExtensions
