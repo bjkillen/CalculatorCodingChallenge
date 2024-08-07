@@ -122,4 +122,59 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void SupportsCustomOneCharDelimiterReturns7()
+    {
+        int expected = 7;
+        string input = "//#\n2#5";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void SupportsCustomOneCharDelimiterReturns102()
+    {
+        int expected = 102;
+        string input = "//,\n2,ff,100";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesMixedDelimitersReturns20()
+    {
+        int expected = 20;
+        string input = "//#\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesInvalidDelimiterReturns13()
+    {
+        int expected = 13;
+        string input = "/#\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void InvalidatesMultiCharacterDelimiterReturns13()
+    {
+        int expected = 13;
+        string input = "//##\n2#5,10,3";
+
+        int actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }
