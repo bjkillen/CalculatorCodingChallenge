@@ -36,15 +36,15 @@ namespace CalculatorCodingChallenge.Models
                 );
             }
 
-            RegexDelimiterResult matchedBracketedDelimiter =
-                RegexHelper.MatchesBracketedDelimiterAndCleansIfMatch(sanitizedInputText);
+            RegexDelimitersResult matchedBracketedDelimiters =
+                RegexHelper.MatchesBracketedDelimitersAndCleansIfMatch(sanitizedInputText);
 
-            if (matchedBracketedDelimiter.Delimiter != null)
+            if (matchedBracketedDelimiters.Delimiters.Length > 0)
             {
-                separators.Add(matchedBracketedDelimiter.Delimiter);
+                separators.UnionWith(matchedBracketedDelimiters.Delimiters.ToHashSet());
 
                 return ParseInputNoDelimiter(
-                    matchedBracketedDelimiter.CleanedText,
+                    matchedBracketedDelimiters.CleanedText,
                     separators.ToArray()
                 );
             }
