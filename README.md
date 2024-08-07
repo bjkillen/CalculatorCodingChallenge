@@ -4,10 +4,11 @@ Restaurant365 Code Challenge - String Calculator from Blaine Killen
 ## Technologies
 * Visual Studio
 * C#
+* xUnit
 
 ## Installation
-1. Install the latest version of Visual Studio for [Mac](https://developer.apple.com/xcode) or [PC](https://visualstudio.microsoft.com/downloads/)
-2. Install .Net Framework 8.0 or latest minor build within major build [here]([https://brew.sh](https://dotnet.microsoft.com/en-us/download/dotnet/8.0))
+1. Install the latest version of Visual Studio for [Mac](https://visualstudio.microsoft.com/vs/mac/) or [PC](https://visualstudio.microsoft.com/downloads/)
+2. Install .Net Framework 8.0 or latest minor build within major build [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
 3. Build using play button inside IDE
 
 ## Updates
