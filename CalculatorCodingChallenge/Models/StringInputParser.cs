@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using CalculatorCodingChallenge.Exceptions;
@@ -25,9 +24,7 @@ namespace CalculatorCodingChallenge.Models
                 return new int[] { 0 };
             }
 
-            // inputting \n via console received an escape while unit tests
-            // input don't. We must sanitize correctly for user input
-            string sanitizedInputText = text.Replace("\\n", "\n");
+            string sanitizedInputText = text.Sanitize();
 
             Match matchResult = startingDelimiterRegex.Match(sanitizedInputText);
 
