@@ -18,7 +18,7 @@ public class Program
             "-- empty or invalid delimiters will be invalidated");
         Console.WriteLine("");
         Console.WriteLine("You can process entries until Ctrl+C is pressed, " +
-            "in which the application will exit");
+            "in which the application will stop processing them");
         Console.WriteLine("");
 
         bool keepCalculating = true;
