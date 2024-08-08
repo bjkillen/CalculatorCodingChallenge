@@ -130,6 +130,21 @@ public class BaseControllerTests
     }
 
     [Fact]
+    public void MultipleValuesWithMixedInvalidAndEmptyNumbersReturns12()
+    {
+        ComputationResult expected = new(
+            12,
+            "2+0+4+0+0+6"
+        );
+
+        string input = "2,,4,rrrr,1001,6";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void SupportsSplitByNewline()
     {
         ComputationResult expected = new(
