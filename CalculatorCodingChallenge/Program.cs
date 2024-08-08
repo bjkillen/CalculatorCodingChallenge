@@ -17,7 +17,7 @@ public class Program
             "-- single character delimiter //{delimiter}\\n{numbers}\n" +
             "-- empty or invalid delimiters will be invalidated");
         Console.WriteLine("");
-        Console.WriteLine("You can process entries until Ctrl+C is pressed, " +
+        Console.WriteLine("We will process entries until Ctrl+C is pressed, " +
             "in which the application will stop processing them");
         Console.WriteLine("");
 
