@@ -1,4 +1,6 @@
 ﻿using System;
+using CalculatorCodingChallenge.Controllers;
+
 namespace CalculatorCodingChallenge.Models.Calculator
 {
     public abstract class Calculator
@@ -7,6 +9,6 @@ namespace CalculatorCodingChallenge.Models.Calculator
         {
         }
 
-        public abstract int Calculate(int[] nums);
+        public abstract ComputationResult Calculate(int[] nums);
     }
 }

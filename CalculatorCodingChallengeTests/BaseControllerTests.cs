@@ -8,10 +8,14 @@ public class BaseControllerTests
     [Fact]
     public void OneValueReturn20()
     {
-        int expected = 20;
+        ComputationResult expected = new (
+            20,
+            "20"
+        );
+
         string input = "20";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -19,10 +23,14 @@ public class BaseControllerTests
     [Fact]
     public void NoValuesReturn0()
     {
-        int expected = 0;
+        ComputationResult expected = new (
+            0,
+            "0"
+        );
+
         string input = "";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -30,10 +38,14 @@ public class BaseControllerTests
     [Fact]
     public void OnlyCommaReturn0()
     {
-        int expected = 0;
+        ComputationResult expected = new (
+            0,
+            "0+0"
+        );
+
         string input = ",";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -41,10 +53,14 @@ public class BaseControllerTests
     [Fact]
     public void MultipleValuesOneGreaterThan1000Return8()
     {
-        int expected = 8;
+        ComputationResult expected = new(
+            8,
+            "2+0+6"
+        );
+
         string input = "2,1001,6";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -52,10 +68,14 @@ public class BaseControllerTests
     [Fact]
     public void MultipleValuesOneEqual1000Return1008()
     {
-        int expected = 1008;
+        ComputationResult expected = new (
+            1008,
+            "2+1000+6"
+        );
+
         string input = "2,1000,6";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -65,7 +85,7 @@ public class BaseControllerTests
     {
         string input = "4,-3,0,-10";
 
-        Action act = () => BaseController.Compute(input);
+        void act() => BaseController.Compute(input);
 
         var ex = Assert.Throws<NoNegativeNumbersException>(act);
 
@@ -82,10 +102,14 @@ public class BaseControllerTests
     [Fact]
     public void InvalidInputConvertsTo0Return5()
     {
-        int expected = 5;
+        ComputationResult expected = new(
+            5,
+            "5+0"
+        );
+
         string input = "5,tytyt";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -93,10 +117,29 @@ public class BaseControllerTests
     [Fact]
     public void MultipleValuesReturn78()
     {
-        int expected = 78;
+        ComputationResult expected = new(
+            78,
+            "1+2+3+4+5+6+7+8+9+10+11+12"
+        );
+
         string input = "1,2,3,4,5,6,7,8,9,10,11,12";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void MultipleValuesWithMixedInvalidAndEmptyNumbersReturns12()
+    {
+        ComputationResult expected = new(
+            12,
+            "2+0+4+0+0+6"
+        );
+
+        string input = "2,,4,rrrr,1001,6";
+
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -104,10 +147,14 @@ public class BaseControllerTests
     [Fact]
     public void SupportsSplitByNewline()
     {
-        int expected = 6;
+        ComputationResult expected = new(
+            6,
+            "1+2+3"
+        );
+
         string input = "1\n2\n3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -115,10 +162,14 @@ public class BaseControllerTests
     [Fact]
     public void SupportsSplitByNewlineAndCommaMixed()
     {
-        int expected = 6;
+        ComputationResult expected = new(
+            6,
+            "1+2+3"
+        );
+
         string input = "1\n2,3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -126,10 +177,14 @@ public class BaseControllerTests
     [Fact]
     public void SupportsCustomOneCharDelimiterReturns7()
     {
-        int expected = 7;
+        ComputationResult expected = new(
+            7,
+            "2+5"
+        );
+
         string input = "//#\n2#5";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -137,10 +192,14 @@ public class BaseControllerTests
     [Fact]
     public void SupportsCustomOneCharDelimiterReturns102()
     {
-        int expected = 102;
+        ComputationResult expected = new(
+            102,
+            "2+0+100"
+        );
+
         string input = "//,\n2,ff,100";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -148,10 +207,14 @@ public class BaseControllerTests
     [Fact]
     public void HandlesMixedDelimitersReturns20()
     {
-        int expected = 20;
+        ComputationResult expected = new(
+            20,
+            "2+5+10+3"
+        );
+
         string input = "//#\n2#5,10,3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -159,10 +222,14 @@ public class BaseControllerTests
     [Fact]
     public void HandlesInvalidDelimiterReturns13()
     {
-        int expected = 13;
+        ComputationResult expected = new(
+            13,
+            "0+0+10+3"
+        );
+
         string input = "/#\n2#5,10,3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -170,10 +237,14 @@ public class BaseControllerTests
     [Fact]
     public void InvalidatesEmptyDelimiterReturns13()
     {
-        int expected = 13;
+        ComputationResult expected = new(
+            13,
+            "0+0+10+3"
+        );
+
         string input = "//\n2#5,10,3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -181,10 +252,14 @@ public class BaseControllerTests
     [Fact]
     public void InvalidatesMultiCharacterDelimiterReturns13()
     {
-        int expected = 13;
+        ComputationResult expected = new(
+            13,
+            "0+0+10+3"
+        );
+
         string input = "//##\n2#5,10,3";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -192,10 +267,14 @@ public class BaseControllerTests
     [Fact]
     public void HandlesMultiCharacterBracketedDelimiterReturns66()
     {
-        int expected = 66;
+        ComputationResult expected = new(
+            66,
+            "11+22+33"
+        );
+
         string input = "//[***]\n11***22***33";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -203,10 +282,14 @@ public class BaseControllerTests
     [Fact]
     public void InvalidatesEmptyBracketedDelimiterReturns0()
     {
-        int expected = 0;
+        ComputationResult expected =new(
+            0,
+            "0+0"
+        );
+
         string input = "//[]\n11***22***33";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -214,10 +297,14 @@ public class BaseControllerTests
     [Fact]
     public void HandlesMultiCharacterMultiBracketedDelimiterReturns110()
     {
-        int expected = 110;
+        ComputationResult expected = new(
+            110,
+            "11+22+0+33+44"
+        );
+
         string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }
@@ -225,10 +312,14 @@ public class BaseControllerTests
     [Fact]
     public void HandlesMultiCharacterMultiBracketedAndInvalidatesEmptyBracketedDelimiterReturns110()
     {
-        int expected = 110;
+        ComputationResult expected = new(
+            110,
+            "11+22+0+33+44"
+        );
+
         string input = "//[*][!!][][r9r]\n11r9r22*hh*33!!44";
 
-        int actual = BaseController.Compute(input);
+        ComputationResult actual = BaseController.Compute(input);
 
         Assert.Equal(expected, actual);
     }

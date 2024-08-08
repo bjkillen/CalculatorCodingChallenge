@@ -5,13 +5,29 @@ using CalculatorCodingChallenge.Models.Calculator;
 
 namespace CalculatorCodingChallenge.Controllers
 {
+    public readonly struct ComputationResult
+    {
+        public ComputationResult(int result, string formulaBeforeEquals)
+        {
+            Result = result;
+            FormulaBeforeEquals = formulaBeforeEquals;
+        }
+
+        public int Result { get; }
+        public string FormulaBeforeEquals { get; }
+
+        public string FullFormula {
+            get { return $"{FormulaBeforeEquals} = {Result}"; }
+        }
+    }
+
     public static class BaseController
     {
         static BaseController()
         {
         }
 
-        public static int Compute(string? inputText)
+        public static ComputationResult Compute(string? inputText)
         {
             StringInputParser inputParser = new();
 
@@ -19,7 +35,7 @@ namespace CalculatorCodingChallenge.Controllers
 
             AddCalculator calculator = new();
 
-            int result = calculator.Calculate(parsedInputText);
+            ComputationResult result = calculator.Calculate(parsedInputText);
 
             return result;
         }
