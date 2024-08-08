@@ -323,4 +323,15 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    // This test simulates a user entering multiple inputs before using Ctrl+C to exit
+    // The purpose of the test is to catch any mishandling of state
+    // and/ or class instantiation when called multiple times
+    [Fact]
+    public void HandlesMultipleInputsEnteredSequentially()
+    {
+        MultipleValuesReturn78();
+        HandlesMultiCharacterBracketedDelimiterReturns66();
+        InvalidatesEmptyBracketedDelimiterReturns0();
+    }
 }

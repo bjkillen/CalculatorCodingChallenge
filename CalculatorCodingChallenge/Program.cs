@@ -17,28 +17,50 @@ public class Program
             "-- single character delimiter //{delimiter}\\n{numbers}\n" +
             "-- empty or invalid delimiters will be invalidated");
         Console.WriteLine("");
-
-        string? inputText = Console.ReadLine();
-
-        try
-        {
-            ComputationResult result = BaseController.Compute(inputText);
-
-            Console.WriteLine($"Result: {result.Result}");
-            Console.WriteLine($"Formula: {result.FullFormula}");
-        }
-        catch (NoNegativeNumbersException e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Unknown error occurred");
-        }
-
-        // Wait for the user to respond before closing.
+        Console.WriteLine("You can process entries until Ctrl+C is pressed, " +
+            "in which the application will exit");
         Console.WriteLine("");
-        Console.Write("Press any key to close the Calculator console app...");
-        Console.ReadKey();
+
+        bool keepCalculating = true;
+
+        Console.CancelKeyPress += delegate (object? sender, ConsoleCancelEventArgs e) {
+            keepCalculating = false;
+            e.Cancel = true;
+
+            Console.WriteLine("Ctrl+C detected, please press enter to close program");
+        };
+
+        while (keepCalculating)
+        {
+            string? inputText = Console.ReadLine();
+
+            // ReadLine will block until user presses enter in console
+            // and stream is read from. Need to break loop if exit key
+            // has been previously pressed
+            if (!keepCalculating)
+            {
+                break;
+            }
+
+            try
+            {
+                ComputationResult result = BaseController.Compute(inputText);
+
+                Console.WriteLine($"Result: {result.Result}");
+                Console.WriteLine($"Formula: {result.FullFormula}");
+            }
+            catch (NoNegativeNumbersException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Unknown error occurred");
+            }
+
+            Console.WriteLine("");
+        }
+
+        Console.WriteLine("Exiting now ... goodbye!");
     }
 }
