@@ -426,7 +426,7 @@ public class BaseControllerTests
     }
 
     [Fact]
-    public void InvalidatesAllowNegativesThrowsNoNegativeNumbersException()
+    public void InvalidatesAllowNegativesFlagThrowsNoNegativeNumbersException()
     {
         string input = "4,1001,-3 --allowNegativesa";
 
