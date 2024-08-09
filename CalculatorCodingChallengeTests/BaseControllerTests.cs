@@ -334,4 +334,64 @@ public class BaseControllerTests
         HandlesMultiCharacterBracketedDelimiterReturns66();
         InvalidatesEmptyBracketedDelimiterReturns0();
     }
+
+    [Fact]
+    public void HandlesAlternateDelimiterFlagReturns1008()
+    {
+        ComputationResult expected = new(
+            1008,
+            "2+1000+6"
+        );
+
+        string input = "2&1000&6 -ad=&";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesValueUpperBoundFlagReturns1009()
+    {
+        ComputationResult expected = new(
+            1009,
+            "2+1001+6"
+        );
+
+        string input = "2,1001,6 -ub=2000";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesAllowNegativesFlagReturns1()
+    {
+        ComputationResult expected = new(
+            1,
+            "4+-3"
+        );
+
+        string input = "4,-3 --allowNegatives";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesAllFlagsReturns1002()
+    {
+        ComputationResult expected = new(
+            1002,
+            "4+-3+1001"
+        );
+
+        string input = "4,-3&1001 -ad=& --allowNegatives -ub=2000";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }
