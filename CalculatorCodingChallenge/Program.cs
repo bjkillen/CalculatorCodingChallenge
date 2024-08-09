@@ -8,10 +8,16 @@ public class Program
         Console.Clear();
 
         Console.WriteLine("Welcome to my calculator!");
+        Console.WriteLine("");
         Console.WriteLine("Please provide only positive numbers for me to add, " +
             "separated by a comma or \\n. Example 1,2\\n3");
+        Console.WriteLine("-- You can provide an extra alternate delimiter by using flag -ad={delimiter}");
+        Console.WriteLine("-- You can allow negative numbers by adding --allowNegatives flag");
+        Console.WriteLine("");
         Console.WriteLine("Please note, values greater than 1000 " +
             "will be invalidated and turned to 0.");
+        Console.WriteLine("-- The upper bound is configurable by using flag -ub={upperBound}");
+        Console.WriteLine("");
         Console.WriteLine("You can provide custom delimiters in the following formats\n" +
             "-- list of multiple character delimiters /[{delimiter1}][{delimiter2}]...\\n{numbers}\n" +
             "-- single character delimiter //{delimiter}\\n{numbers}\n" +

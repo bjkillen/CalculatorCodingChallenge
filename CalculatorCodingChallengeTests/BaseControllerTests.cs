@@ -334,4 +334,128 @@ public class BaseControllerTests
         HandlesMultiCharacterBracketedDelimiterReturns66();
         InvalidatesEmptyBracketedDelimiterReturns0();
     }
+
+    [Fact]
+    public void HandlesAlternateDelimiterFlagReturns1008()
+    {
+        ComputationResult expected = new(
+            1008,
+            "2+1000+6"
+        );
+
+        string input = "2&1000&6 -ad=&";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesValueUpperBoundFlagReturns1009()
+    {
+        ComputationResult expected = new(
+            1009,
+            "2+1001+6"
+        );
+
+        string input = "2,1001,6 -ub=2000";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesAllowNegativesFlagReturns1()
+    {
+        ComputationResult expected = new(
+            1,
+            "4+-3"
+        );
+
+        string input = "4,-3 --allowNegatives";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void HandlesAllFlagsReturns1002()
+    {
+        ComputationResult expected = new(
+            1002,
+            "4+-3+1001"
+        );
+
+        string input = "4,-3&1001 -ad=& --allowNegatives -ub=2000";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ChoosesFirstValidDelimiterFlagReturns2009()
+    {
+        ComputationResult expected = new(
+            2009,
+            "3+2000+0+0+6"
+        );
+
+        string input = "3,2000,2001,4&5%6 -ub=2000 -ub=3000 -ad=% -ad=&";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void InvalidatesAlternateDelimiterFlagReturns316()
+    {
+        ComputationResult expected = new(
+            316,
+            "4+312"
+        );
+
+        string input = "4,312 -ad=a1";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void InvalidatesAllowNegativesFlagThrowsNoNegativeNumbersException()
+    {
+        string input = "4,1001,-3 --allowNegativesa";
+
+        void act() => BaseController.Compute(input);
+
+        var ex = Assert.Throws<NoNegativeNumbersException>(act);
+
+        int[] negativeNumbers = new int[] { -3 };
+        string expectedExceptionMessage =
+            new NoNegativeNumbersException(negativeNumbers).Message;
+
+        Assert.Equal(
+            expectedExceptionMessage,
+            ex.Message
+        );
+    }
+
+    [Fact]
+    public void InvalidatesUpperBoundFlagReturns4()
+    {
+        ComputationResult expected = new(
+            4,
+            "4+0"
+        );
+
+        string input = "4,1001 -ub=2000a";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }

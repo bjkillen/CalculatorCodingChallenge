@@ -8,6 +8,16 @@ namespace CalculatorCodingChallenge.Extensions
         {
             return Source.Replace("\\n", "\n");
         }
+
+        public static string[] SplitOnce(this string? Source, string delimiter)
+        {
+            if (string.IsNullOrEmpty(Source))
+            {
+                return Array.Empty<string>();
+            }
+
+            return Source.Split(delimiter, 2, StringSplitOptions.RemoveEmptyEntries);
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 
+using CalculatorCodingChallenge.Extensions;
 using CalculatorCodingChallenge.Models;
 using CalculatorCodingChallenge.Models.Calculator;
 
@@ -29,9 +30,17 @@ namespace CalculatorCodingChallenge.Controllers
 
         public static ComputationResult Compute(string? inputText)
         {
-            StringInputParser inputParser = new();
+            string[] inputTextSplitOnceBySpace = inputText.SplitOnce(" ");
 
-            int[] parsedInputText = inputParser.ParseInput(inputText);
+            string? inputTextWithoutArgs = inputTextSplitOnceBySpace.TryGetElement(0);
+
+            string? potentialArgs = inputTextSplitOnceBySpace.TryGetElement(1);
+
+            CommandLineArgsResult parsedCommandLineArgs = CommandLineArgParser.ParseArgs(potentialArgs);
+
+            StringInputParser inputParser = new(parsedCommandLineArgs);
+
+            int[] parsedInputText = inputParser.ParseInput(inputTextWithoutArgs);
 
             AddCalculator calculator = new();
 
