@@ -34,6 +34,9 @@ namespace CalculatorCodingChallenge.Models
         private static readonly string startingBracketedDelimiterPattern = @"^//(\[.+\])+?\n";
         private static readonly string valueInsideBracketedListDelimiterPattern = @"\[([^\]]+)\]+";
 
+        private static readonly string nonDigitsPattern = @$"([^0-9]+)";
+        private static readonly string onlyDigitsPattern = @"(-?[0-9]+)";
+
         public static RegexDelimiterResult MatchesSimpleDelimiterAndCleansIfMatch(string input)
         {
             return MatchesRegexAndCleansIfMatch(input, startingSimpleDelimiterPattern);
@@ -72,7 +75,7 @@ namespace CalculatorCodingChallenge.Models
             return new RegexDelimitersResult(result.CleanedText, returnDelimiters.ToArray());
         }
 
-        public static RegexDelimiterResult MatchesRegexAndCleansIfMatch(
+        private static RegexDelimiterResult MatchesRegexAndCleansIfMatch(
                 string input,
                 string pattern
             )
@@ -95,6 +98,20 @@ namespace CalculatorCodingChallenge.Models
             }
 
             return new RegexDelimiterResult(input, returnDelimiter);
+        }
+
+        public static RegexDelimiterResult MatchesStartsWithAlternateDelimiterFlag(string input, string flag)
+        {
+            string pattern = @$"^{flag}{nonDigitsPattern}$";
+
+            return MatchesRegexAndCleansIfMatch(input, pattern);
+        }
+
+        public static RegexDelimiterResult MatchesStartsWithValueUpperBoundFlag(string input, string flag)
+        {
+            string pattern = @$"^{flag}{onlyDigitsPattern}$";
+
+            return MatchesRegexAndCleansIfMatch(input, pattern);
         }
     }
 }

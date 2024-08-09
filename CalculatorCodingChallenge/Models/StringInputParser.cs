@@ -8,11 +8,20 @@ namespace CalculatorCodingChallenge.Models
 {
     public class StringInputParser
     {
-        public StringInputParser()
+        public StringInputParser(CommandLineArgsResult args)
         {
+            if (args.AlternateDelimiter != null)
+            {
+                separators.Add(args.AlternateDelimiter);
+            }
+
+            ValueUpperBound = args.ValuesUpperBound ?? 1000;
+            AllowNegatives = args.AllowNegatives ?? false;
         }
 
         private readonly HashSet<string> separators = new() { ",", "\n" };
+        private int ValueUpperBound { get; set; }
+        private bool AllowNegatives { get; set; }
 
         public int[] ParseInput(string? text)
         {
@@ -52,7 +61,7 @@ namespace CalculatorCodingChallenge.Models
             return ParseInputNoDelimiter(sanitizedInputText, separators.ToArray());
         }
 
-        private static int[] ParseInputNoDelimiter(string text, string[] separators)
+        private int[] ParseInputNoDelimiter(string text, string[] separators)
         {
             // TODO: Refactor this block to make one pass looking at each char,
             // parsing previous chars when delimeter found and performing
@@ -60,14 +69,17 @@ namespace CalculatorCodingChallenge.Models
             //
             // This will improve performance in the case requirements change
             int[] numbers = text.Split(separators, StringSplitOptions.TrimEntries)
-                            .Select(numText => numText.TryParseWithLimit())
+                            .Select(numText => numText.TryParseWithLimit(ValueUpperBound))
                             .ToArray();
 
-            int[] negativeNumbers = numbers.Where(n => n < 0).ToArray();
-
-            if (negativeNumbers.Length > 0)
+            if (!AllowNegatives)
             {
-                throw new NoNegativeNumbersException(negativeNumbers);
+                int[] negativeNumbers = numbers.Where(n => n < 0).ToArray();
+
+                if (negativeNumbers.Length > 0)
+                {
+                    throw new NoNegativeNumbersException(negativeNumbers);
+                }
             }
 
             return numbers;
