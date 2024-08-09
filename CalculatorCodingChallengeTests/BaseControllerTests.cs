@@ -396,6 +396,21 @@ public class BaseControllerTests
     }
 
     [Fact]
+    public void ChoosesFirstValidDelimiterFlagReturns2009()
+    {
+        ComputationResult expected = new(
+            2009,
+            "3+2000+0+0+6"
+        );
+
+        string input = "3,2000,2001,4&5%6 -ub=2000 -ub=3000 -ad=% -ad=&";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
     public void InvalidatesAlternateDelimiterFlagReturns316()
     {
         ComputationResult expected = new(

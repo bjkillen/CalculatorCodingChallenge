@@ -11,7 +11,7 @@ namespace CalculatorCodingChallenge.Extensions
 
         public static string[] SplitOnce(this string? Source, string delimiter)
         {
-            if (Source == null)
+            if (string.IsNullOrEmpty(Source))
             {
                 return Array.Empty<string>();
             }
