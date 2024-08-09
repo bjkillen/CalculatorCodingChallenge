@@ -56,7 +56,7 @@ namespace CalculatorCodingChallenge.Models
                     alternateDelimiter = alternateDelimiterMatch.Delimiter;
                     continue;
                 }
-                else if (allowNegatives == null && arg.Contains("--allowNegatives"))
+                else if (allowNegatives == null && arg == "--allowNegatives")
                 {
                     allowNegatives = true;
                     continue;

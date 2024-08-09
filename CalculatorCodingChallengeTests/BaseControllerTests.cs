@@ -394,4 +394,53 @@ public class BaseControllerTests
 
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void InvalidatesAlternateDelimiterFlagReturns316()
+    {
+        ComputationResult expected = new(
+            316,
+            "4+312"
+        );
+
+        string input = "4,312 -ad=a1";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void InvalidatesAllowNegativesThrowsNoNegativeNumbersException()
+    {
+        string input = "4,1001,-3 --allowNegativesa";
+
+        void act() => BaseController.Compute(input);
+
+        var ex = Assert.Throws<NoNegativeNumbersException>(act);
+
+        int[] negativeNumbers = new int[] { -3 };
+        string expectedExceptionMessage =
+            new NoNegativeNumbersException(negativeNumbers).Message;
+
+        Assert.Equal(
+            expectedExceptionMessage,
+            ex.Message
+        );
+    }
+
+    [Fact]
+    public void InvalidatesUpperBoundFlagReturns4()
+    {
+        ComputationResult expected = new(
+            4,
+            "4+0"
+        );
+
+        string input = "4,1001 -ub=2000a";
+
+        ComputationResult actual = BaseController.Compute(input);
+
+        Assert.Equal(expected, actual);
+    }
 }
