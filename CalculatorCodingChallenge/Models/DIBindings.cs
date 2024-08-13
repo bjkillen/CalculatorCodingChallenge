@@ -7,10 +7,6 @@ namespace CalculatorCodingChallenge.Models
 {
     public class DIBindings : NinjectModule
     {
-        public DIBindings()
-        {
-        }
-
         public override void Load()
         {
             Bind<ICalculator>().To<AddCalculator>();
