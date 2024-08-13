@@ -10,16 +10,23 @@ namespace CalculatorCodingChallengeTests;
 
 public class BaseControllerTests
 {
-    private static BaseController CreateDefaultBaseController()
+    readonly ICommandLineArgParser CommandLineArgParser;
+    readonly IStringInputParser StringInputParser;
+    readonly ICalculator Calculator;
+
+    public BaseControllerTests()
     {
         StandardKernel kernel = new();
         kernel.Load(new DIBindings());
 
-        ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
-        IStringInputParser inputParser = kernel.Get<IStringInputParser>();
-        ICalculator calculator = kernel.Get<ICalculator>();
+        CommandLineArgParser = kernel.Get<ICommandLineArgParser>();
+        StringInputParser = kernel.Get<IStringInputParser>();
+        Calculator = kernel.Get<ICalculator>();
+    }
 
-        return new(commandLineArgParser, inputParser, calculator);
+    private BaseController CreateDefaultBaseController()
+    {
+        return new(CommandLineArgParser, StringInputParser, Calculator);
     }
 
     [Fact]
