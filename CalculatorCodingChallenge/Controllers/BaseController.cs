@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Reflection;
-
-using Ninject;
-using Ninject.Parameters;
 
 using CalculatorCodingChallenge.Extensions;
 using CalculatorCodingChallenge.Models;

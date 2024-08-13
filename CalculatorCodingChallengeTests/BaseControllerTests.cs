@@ -1,5 +1,5 @@
-﻿using System.Reflection;
-using Ninject;
+﻿using Ninject;
+using Moq;
 
 using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Exceptions;
@@ -510,5 +510,37 @@ public class BaseControllerTests
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void ComputeCallsParseArgsAndParseInputAndCalculateOnce()
+    {
+        // Arrange
+        string input = "1,1001,3 -ub=1001 --allowNegatives";
+
+        Mock<ICommandLineArgParser> mockCommandLineArgParser = new();
+        Mock<IStringInputParser> mockStringInputParser = new();
+        Mock<ICalculator> mockCalculator = new();
+
+        BaseController mockBaseController = new (
+            mockCommandLineArgParser.Object,
+            mockStringInputParser.Object,
+            mockCalculator.Object
+        );
+
+        string expectedArgsText = "-ub=1001 --allowNegatives";
+
+        string expectedCalculationText = "1,1001,3";
+        CommandLineArgsResult expectedParsedArgs = new(null, true, 1001);
+
+        int[] parsedInputNums = new[] { 1, 1001, 3 };
+
+        // Act
+        _ = mockBaseController.Compute(input);
+
+        // Assert
+        mockCommandLineArgParser.Verify(p => p.ParseArgs(expectedArgsText), Times.Exactly(1));
+        mockStringInputParser.Verify(p => p.ParseInput(expectedCalculationText, expectedParsedArgs), Times.Exactly(1));
+        mockCalculator.Verify(c => c.Calculate(parsedInputNums), Times.Exactly(1));
     }
 }
