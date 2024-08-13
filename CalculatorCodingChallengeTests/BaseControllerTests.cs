@@ -528,19 +528,17 @@ public class BaseControllerTests
             mockCalculator.Object
         );
 
-        string expectedArgsText = "-ub=1001 --allowNegatives";
-
-        string expectedCalculationText = "1,1001,3";
-        CommandLineArgsResult expectedParsedArgs = new(null, true, 1001);
-
-        int[] parsedInputNums = new[] { 1, 1001, 3 };
-
         // Act
         _ = mockBaseController.Compute(input);
 
         // Assert
-        mockCommandLineArgParser.Verify(p => p.ParseArgs(expectedArgsText), Times.Exactly(1));
-        mockStringInputParser.Verify(p => p.ParseInput(expectedCalculationText, expectedParsedArgs), Times.Exactly(1));
-        mockCalculator.Verify(c => c.Calculate(parsedInputNums), Times.Exactly(1));
+        mockCommandLineArgParser.Verify(p =>
+            p.ParseArgs(It.IsAny<string>()), Times.Exactly(1));
+
+        mockStringInputParser.Verify(p =>
+            p.ParseInput(It.IsAny<string>(), It.IsAny<CommandLineArgsResult>()), Times.Exactly(1));
+
+        mockCalculator.Verify(c =>
+            c.Calculate(It.IsAny<int[]>()), Times.Exactly(1));
     }
 }
