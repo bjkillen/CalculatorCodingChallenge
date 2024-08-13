@@ -34,7 +34,7 @@ namespace CalculatorCodingChallenge.Controllers
 
         public static ComputationResult Compute(string? inputText)
         {
-            var kernel = new StandardKernel();
+            StandardKernel kernel = new();
             kernel.Load(Assembly.GetExecutingAssembly());
 
             string[] inputTextSplitOnceBySpace = inputText.SplitOnce(" ");
