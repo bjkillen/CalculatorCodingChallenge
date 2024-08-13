@@ -1,5 +1,9 @@
-﻿using CalculatorCodingChallenge.Controllers;
+﻿using System.Reflection;
+using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Exceptions;
+using CalculatorCodingChallenge.Models;
+using CalculatorCodingChallenge.Models.Calculator;
+using Ninject;
 
 public class Program
 {
@@ -48,9 +52,18 @@ public class Program
                 break;
             }
 
+            StandardKernel kernel = new();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
             try
             {
-                ComputationResult result = BaseController.Compute(inputText);
+                ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
+                IStringInputParser inputParser = kernel.Get<IStringInputParser>();
+                ICalculator calculator = kernel.Get<ICalculator>();
+
+                BaseController baseController = new(commandLineArgParser, inputParser, calculator);
+
+                ComputationResult result = baseController.Compute(inputText);
 
                 Console.WriteLine($"Result: {result.Result}");
                 Console.WriteLine($"Formula: {result.FullFormula}");

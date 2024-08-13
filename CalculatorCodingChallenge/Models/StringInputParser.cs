@@ -8,14 +8,19 @@ namespace CalculatorCodingChallenge.Models
 {
     public interface IStringInputParser
     {
-        int[] ParseInput(string? text);
+        int[] ParseInput(string? text, CommandLineArgsResult args);
 
     }
 
     public class StringInputParser: IStringInputParser
     {
-        public StringInputParser(CommandLineArgsResult args)
+        private readonly HashSet<string> separators = new() { ",", "\n" };
+        private int ValueUpperBound { get; set; }
+        private bool AllowNegatives { get; set; }
+
+        public int[] ParseInput(string? text, CommandLineArgsResult args)
         {
+
             if (args.AlternateDelimiter != null)
             {
                 separators.Add(args.AlternateDelimiter);
@@ -23,14 +28,7 @@ namespace CalculatorCodingChallenge.Models
 
             ValueUpperBound = args.ValuesUpperBound ?? 1000;
             AllowNegatives = args.AllowNegatives ?? false;
-        }
 
-        private readonly HashSet<string> separators = new() { ",", "\n" };
-        private int ValueUpperBound { get; set; }
-        private bool AllowNegatives { get; set; }
-
-        public int[] ParseInput(string? text)
-        {
             if (text == null)
             {
                 return new int[] { 0 };

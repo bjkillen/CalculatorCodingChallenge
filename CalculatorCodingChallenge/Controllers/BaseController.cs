@@ -26,33 +26,35 @@ namespace CalculatorCodingChallenge.Controllers
         }
     }
 
-    public static class BaseController
+    public class BaseController
     {
-        static BaseController()
+        public BaseController(
+            ICommandLineArgParser commandLineArgParser,
+            IStringInputParser stringInputParser,
+            ICalculator calculator)
         {
+            CommandLineArgParser = commandLineArgParser;
+            StringInputParser = stringInputParser;
+            Calculator = calculator;
         }
 
-        public static ComputationResult Compute(string? inputText)
-        {
-            StandardKernel kernel = new();
-            kernel.Load(Assembly.GetExecutingAssembly());
+        private ICommandLineArgParser CommandLineArgParser { get; set; }
+        private IStringInputParser StringInputParser { get; set; }
+        private ICalculator Calculator{ get; set; }
 
+        public ComputationResult Compute(string? inputText)
+        {
             string[] inputTextSplitOnceBySpace = inputText.SplitOnce(" ");
 
             string? inputTextWithoutArgs = inputTextSplitOnceBySpace.TryGetElement(0);
 
             string? potentialArgs = inputTextSplitOnceBySpace.TryGetElement(1);
 
-            ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
-            CommandLineArgsResult parsedCommandLineArgs = commandLineArgParser.ParseArgs(potentialArgs);
+            CommandLineArgsResult parsedCommandLineArgs = CommandLineArgParser.ParseArgs(potentialArgs);
 
-            IStringInputParser inputParser = kernel.Get<IStringInputParser>(
-                new ConstructorArgument("args", parsedCommandLineArgs));
+            int[] parsedInputText = StringInputParser.ParseInput(inputTextWithoutArgs, parsedCommandLineArgs);
 
-            int[] parsedInputText = inputParser.ParseInput(inputTextWithoutArgs);
-
-            ICalculator calculator = kernel.Get<ICalculator>();
-            ComputationResult result = calculator.Calculate(parsedInputText);
+            ComputationResult result = Calculator.Calculate(parsedInputText);
 
             return result;
         }
