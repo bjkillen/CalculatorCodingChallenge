@@ -3,7 +3,12 @@ using CalculatorCodingChallenge.Controllers;
 
 namespace CalculatorCodingChallenge.Models.Calculator
 {
-    public abstract class Calculator
+    public interface ICalculator
+    {
+        ComputationResult Calculate(int[] nums);
+    }
+
+    public abstract class Calculator: ICalculator
     {
         public Calculator()
         {

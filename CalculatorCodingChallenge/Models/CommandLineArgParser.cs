@@ -24,13 +24,18 @@ namespace CalculatorCodingChallenge.Models
         public int? ValuesUpperBound { get; }
     }
 
-    public static class CommandLineArgParser
+    public interface ICommandLineArgParser
+    {
+        CommandLineArgsResult ParseArgs(string? text);
+    }
+
+    public class CommandLineArgParser: ICommandLineArgParser
     {
         static CommandLineArgParser()
         {
         }
 
-        public static CommandLineArgsResult ParseArgs(string? text)
+        public CommandLineArgsResult ParseArgs(string? text)
         {
             if (string.IsNullOrEmpty(text))
             {

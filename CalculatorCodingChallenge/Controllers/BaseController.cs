@@ -22,13 +22,23 @@ namespace CalculatorCodingChallenge.Controllers
         }
     }
 
-    public static class BaseController
+    public class BaseController
     {
-        static BaseController()
+        public BaseController(
+            ICommandLineArgParser commandLineArgParser,
+            IStringInputParser stringInputParser,
+            ICalculator calculator)
         {
+            CommandLineArgParser = commandLineArgParser;
+            StringInputParser = stringInputParser;
+            Calculator = calculator;
         }
 
-        public static ComputationResult Compute(string? inputText)
+        private ICommandLineArgParser CommandLineArgParser { get; set; }
+        private IStringInputParser StringInputParser { get; set; }
+        private ICalculator Calculator{ get; set; }
+
+        public ComputationResult Compute(string? inputText)
         {
             string[] inputTextSplitOnceBySpace = inputText.SplitOnce(" ");
 
@@ -38,13 +48,9 @@ namespace CalculatorCodingChallenge.Controllers
 
             CommandLineArgsResult parsedCommandLineArgs = CommandLineArgParser.ParseArgs(potentialArgs);
 
-            StringInputParser inputParser = new(parsedCommandLineArgs);
+            int[] parsedInputText = StringInputParser.ParseInput(inputTextWithoutArgs, parsedCommandLineArgs);
 
-            int[] parsedInputText = inputParser.ParseInput(inputTextWithoutArgs);
-
-            AddCalculator calculator = new();
-
-            ComputationResult result = calculator.Calculate(parsedInputText);
+            ComputationResult result = Calculator.Calculate(parsedInputText);
 
             return result;
         }

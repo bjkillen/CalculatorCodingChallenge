@@ -1,5 +1,10 @@
-﻿using CalculatorCodingChallenge.Controllers;
+﻿using System.Reflection;
+using Ninject;
+
+using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Exceptions;
+using CalculatorCodingChallenge.Models;
+using CalculatorCodingChallenge.Models.Calculator;
 
 public class Program
 {
@@ -36,6 +41,13 @@ public class Program
             Console.WriteLine("Ctrl+C detected, please press enter to close program");
         };
 
+        StandardKernel kernel = new();
+        kernel.Load(Assembly.GetExecutingAssembly());
+
+        ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
+        IStringInputParser inputParser = kernel.Get<IStringInputParser>();
+        ICalculator calculator = kernel.Get<ICalculator>();
+
         while (keepCalculating)
         {
             string? inputText = Console.ReadLine();
@@ -50,7 +62,9 @@ public class Program
 
             try
             {
-                ComputationResult result = BaseController.Compute(inputText);
+                BaseController baseController = new(commandLineArgParser, inputParser, calculator);
+
+                ComputationResult result = baseController.Compute(inputText);
 
                 Console.WriteLine($"Result: {result.Result}");
                 Console.WriteLine($"Formula: {result.FullFormula}");

@@ -21,4 +21,7 @@
     <Folder Include="Models\Calculator\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Ninject" Version="3.3.6" />
+  </ItemGroup>
 </Project>
