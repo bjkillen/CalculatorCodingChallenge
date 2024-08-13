@@ -57,8 +57,8 @@ public class Program
             kernel.Load(Assembly.GetExecutingAssembly());
 
             ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
-            ICalculator calculator = kernel.Get<ICalculator>();
             IStringInputParser inputParser = kernel.Get<IStringInputParser>();
+            ICalculator calculator = kernel.Get<ICalculator>();
 
             try
             {
