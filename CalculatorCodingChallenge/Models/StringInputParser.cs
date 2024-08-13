@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 using CalculatorCodingChallenge.Exceptions;
 using CalculatorCodingChallenge.Extensions;

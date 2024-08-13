@@ -1,9 +1,10 @@
 ﻿using System.Reflection;
+using Ninject;
+
 using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Exceptions;
 using CalculatorCodingChallenge.Models;
 using CalculatorCodingChallenge.Models.Calculator;
-using Ninject;
 
 public class Program
 {
