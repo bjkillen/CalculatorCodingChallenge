@@ -41,6 +41,13 @@ public class Program
             Console.WriteLine("Ctrl+C detected, please press enter to close program");
         };
 
+        StandardKernel kernel = new();
+        kernel.Load(Assembly.GetExecutingAssembly());
+
+        ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
+        IStringInputParser inputParser = kernel.Get<IStringInputParser>();
+        ICalculator calculator = kernel.Get<ICalculator>();
+
         while (keepCalculating)
         {
             string? inputText = Console.ReadLine();
@@ -53,16 +60,8 @@ public class Program
                 break;
             }
 
-            StandardKernel kernel = new();
-            kernel.Load(Assembly.GetExecutingAssembly());
-
-            ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
-            IStringInputParser inputParser = kernel.Get<IStringInputParser>();
-            ICalculator calculator = kernel.Get<ICalculator>();
-
             try
             {
-
                 BaseController baseController = new(commandLineArgParser, inputParser, calculator);
 
                 ComputationResult result = baseController.Compute(inputText);
