@@ -10,9 +10,7 @@ namespace CalculatorCodingChallengeTests;
 
 public class BaseControllerTests
 {
-    readonly BaseController baseController;
-
-    public BaseControllerTests()
+    private static BaseController CreateDefaultBaseController()
     {
         StandardKernel kernel = new();
         kernel.Load(new DIBindings());
@@ -21,7 +19,7 @@ public class BaseControllerTests
         IStringInputParser inputParser = kernel.Get<IStringInputParser>();
         ICalculator calculator = kernel.Get<ICalculator>();
 
-        baseController = new(commandLineArgParser, inputParser, calculator);
+        return new(commandLineArgParser, inputParser, calculator);
     }
 
     [Fact]
@@ -34,6 +32,7 @@ public class BaseControllerTests
 
         string input = "20";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -49,6 +48,7 @@ public class BaseControllerTests
 
         string input = "";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -64,6 +64,7 @@ public class BaseControllerTests
 
         string input = ",";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -79,6 +80,7 @@ public class BaseControllerTests
 
         string input = "2,1001,6";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -94,6 +96,7 @@ public class BaseControllerTests
 
         string input = "2,1000,6";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -104,6 +107,7 @@ public class BaseControllerTests
     {
         string input = "4,-3,0,-10";
 
+        BaseController baseController = CreateDefaultBaseController();
         void act() => baseController.Compute(input);
 
         var ex = Assert.Throws<NoNegativeNumbersException>(act);
@@ -128,6 +132,7 @@ public class BaseControllerTests
 
         string input = "5,tytyt";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -143,6 +148,7 @@ public class BaseControllerTests
 
         string input = "1,2,3,4,5,6,7,8,9,10,11,12";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -158,6 +164,7 @@ public class BaseControllerTests
 
         string input = "2,,4,rrrr,1001,6";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -173,6 +180,7 @@ public class BaseControllerTests
 
         string input = "1\n2\n3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -188,6 +196,7 @@ public class BaseControllerTests
 
         string input = "1\n2,3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -203,6 +212,7 @@ public class BaseControllerTests
 
         string input = "//#\n2#5";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -218,6 +228,7 @@ public class BaseControllerTests
 
         string input = "//,\n2,ff,100";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -233,6 +244,7 @@ public class BaseControllerTests
 
         string input = "//#\n2#5,10,3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -248,6 +260,7 @@ public class BaseControllerTests
 
         string input = "/#\n2#5,10,3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -263,6 +276,7 @@ public class BaseControllerTests
 
         string input = "//\n2#5,10,3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -278,6 +292,7 @@ public class BaseControllerTests
 
         string input = "//##\n2#5,10,3";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -293,6 +308,7 @@ public class BaseControllerTests
 
         string input = "//[***]\n11***22***33";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -308,6 +324,7 @@ public class BaseControllerTests
 
         string input = "//[]\n11***22***33";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -323,6 +340,7 @@ public class BaseControllerTests
 
         string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -338,6 +356,7 @@ public class BaseControllerTests
 
         string input = "//[*][!!][][r9r]\n11r9r22*hh*33!!44";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -364,6 +383,7 @@ public class BaseControllerTests
 
         string input = "2&1000&6 -ad=&";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -379,6 +399,7 @@ public class BaseControllerTests
 
         string input = "2,1001,6 -ub=2000";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -394,6 +415,7 @@ public class BaseControllerTests
 
         string input = "4,-3 --allowNegatives";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -409,6 +431,7 @@ public class BaseControllerTests
 
         string input = "4,-3&1001 -ad=& --allowNegatives -ub=2000";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -424,6 +447,7 @@ public class BaseControllerTests
 
         string input = "3,2000,2001,4&5%6 -ub=2000 -ub=3000 -ad=% -ad=&";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -439,6 +463,7 @@ public class BaseControllerTests
 
         string input = "4,312 -ad=a1";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);
@@ -449,6 +474,7 @@ public class BaseControllerTests
     {
         string input = "4,1001,-3 --allowNegativesa";
 
+        BaseController baseController = CreateDefaultBaseController();
         void act() => baseController.Compute(input);
 
         var ex = Assert.Throws<NoNegativeNumbersException>(act);
@@ -473,6 +499,7 @@ public class BaseControllerTests
 
         string input = "4,1001 -ub=2000a";
 
+        BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);
 
         Assert.Equal(expected, actual);

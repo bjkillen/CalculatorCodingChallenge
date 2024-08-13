@@ -14,12 +14,13 @@ namespace CalculatorCodingChallenge.Models
 
     public class StringInputParser: IStringInputParser
     {
-        private readonly HashSet<string> separators = new() { ",", "\n" };
+        private readonly HashSet<string> defaultSeparators = new() { ",", "\n" };
         private int ValueUpperBound { get; set; }
         private bool AllowNegatives { get; set; }
 
         public int[] ParseInput(string? text, CommandLineArgsResult args)
         {
+            HashSet<string> separators = new(defaultSeparators);
 
             if (args.AlternateDelimiter != null)
             {

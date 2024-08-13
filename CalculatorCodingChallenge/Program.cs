@@ -56,11 +56,11 @@ public class Program
             kernel.Load(Assembly.GetExecutingAssembly());
 
             ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
+            ICalculator calculator = kernel.Get<ICalculator>();
+            IStringInputParser inputParser = kernel.Get<IStringInputParser>();
 
             try
             {
-                IStringInputParser inputParser = kernel.Get<IStringInputParser>();
-                ICalculator calculator = kernel.Get<ICalculator>();
 
                 BaseController baseController = new(commandLineArgParser, inputParser, calculator);
 
