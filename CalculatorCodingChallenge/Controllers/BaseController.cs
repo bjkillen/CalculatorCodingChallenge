@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Reflection;
+
+using Ninject;
+using Ninject.Parameters;
 
 using CalculatorCodingChallenge.Extensions;
 using CalculatorCodingChallenge.Models;
@@ -30,20 +34,24 @@ namespace CalculatorCodingChallenge.Controllers
 
         public static ComputationResult Compute(string? inputText)
         {
+            var kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
             string[] inputTextSplitOnceBySpace = inputText.SplitOnce(" ");
 
             string? inputTextWithoutArgs = inputTextSplitOnceBySpace.TryGetElement(0);
 
             string? potentialArgs = inputTextSplitOnceBySpace.TryGetElement(1);
 
-            CommandLineArgsResult parsedCommandLineArgs = CommandLineArgParser.ParseArgs(potentialArgs);
+            ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
+            CommandLineArgsResult parsedCommandLineArgs = commandLineArgParser.ParseArgs(potentialArgs);
 
-            StringInputParser inputParser = new(parsedCommandLineArgs);
+            IStringInputParser inputParser = kernel.Get<IStringInputParser>(
+                new ConstructorArgument("args", parsedCommandLineArgs));
 
             int[] parsedInputText = inputParser.ParseInput(inputTextWithoutArgs);
 
-            AddCalculator calculator = new();
-
+            ICalculator calculator = kernel.Get<ICalculator>();
             ComputationResult result = calculator.Calculate(parsedInputText);
 
             return result;

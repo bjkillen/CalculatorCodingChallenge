@@ -6,7 +6,13 @@ using CalculatorCodingChallenge.Extensions;
 
 namespace CalculatorCodingChallenge.Models
 {
-    public class StringInputParser
+    public interface IStringInputParser
+    {
+        int[] ParseInput(string? text);
+
+    }
+
+    public class StringInputParser: IStringInputParser
     {
         public StringInputParser(CommandLineArgsResult args)
         {
