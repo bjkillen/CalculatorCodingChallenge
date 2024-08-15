@@ -20,7 +20,6 @@ namespace CalculatorCodingChallenge.Models.Calculator
             // save an extra for loop with method like Join
             nums.forEach((num, idx) =>
             {
-
                 if (idx == 0)
                 {
                     currentResult = num;
