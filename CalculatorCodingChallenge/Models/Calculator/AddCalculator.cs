@@ -24,7 +24,7 @@ namespace CalculatorCodingChallenge.Models.Calculator
 
                 if (idx == 0)
                 {
-                    formulaBeforeEquals += currentSum.ToString();
+                    formulaBeforeEquals += num.ToString();
                 }
                 else
                 {

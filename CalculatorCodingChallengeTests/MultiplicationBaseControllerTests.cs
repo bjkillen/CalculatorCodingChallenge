@@ -48,10 +48,10 @@ public class MultiplicationBaseControllerTests
     {
         ComputationResult expected = new(
             -24,
-            "1*2*3*-4"
+            "2*3*-4*1"
         );
 
-        string input = "1,2,3,-4 --allowNegatives";
+        string input = "2,3,-4,1 --allowNegatives";
 
         BaseController baseController = CreateDefaultBaseController();
         ComputationResult actual = baseController.Compute(input);

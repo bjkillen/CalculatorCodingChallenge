@@ -29,4 +29,3 @@ namespace CalculatorCodingChallenge.Models
         }
     }
 }
-

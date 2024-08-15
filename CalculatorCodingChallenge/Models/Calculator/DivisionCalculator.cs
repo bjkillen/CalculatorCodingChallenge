@@ -23,7 +23,7 @@ namespace CalculatorCodingChallenge.Models.Calculator
                 if (idx == 0)
                 {
                     currentResult = num;
-                    formulaBeforeEquals += currentResult.ToString();
+                    formulaBeforeEquals += num.ToString();
                 }
                 else
                 {
