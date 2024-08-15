@@ -1,6 +1,8 @@
 ﻿using System;
 using Ninject;
 
+using CalculatorCodingChallenge.Extensions;
+
 namespace CalculatorCodingChallenge.Models.Calculator
 {
     public static class CalculatorFactory
@@ -9,7 +11,7 @@ namespace CalculatorCodingChallenge.Models.Calculator
         {
             StandardKernel kernel = KernelSingleton.Instance.kernel;
 
-            return kernel.Get<ICalculator>(type);
+            return kernel.GetNamedOrDefault<ICalculator>(type);
         }
     }
 }
