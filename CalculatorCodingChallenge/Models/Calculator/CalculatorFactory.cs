@@ -7,7 +7,7 @@ namespace CalculatorCodingChallenge.Models.Calculator
 {
     public static class CalculatorFactory
     {
-        public static ICalculator Create(string? type)
+        public static ICalculator Create(string? type = null)
         {
             StandardKernel kernel = KernelSingleton.Instance.kernel;
 

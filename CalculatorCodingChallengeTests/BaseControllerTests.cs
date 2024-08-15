@@ -16,12 +16,11 @@ public class BaseControllerTests
 
     public BaseControllerTests()
     {
-        StandardKernel kernel = new();
-        kernel.Load(new DIBindings());
+        StandardKernel kernel = KernelSingleton.Instance.kernel;
 
         CommandLineArgParser = kernel.Get<ICommandLineArgParser>();
         StringInputParser = kernel.Get<IStringInputParser>();
-        Calculator = kernel.Get<ICalculator>();
+        Calculator = CalculatorFactory.Create();
     }
 
     private BaseController CreateDefaultBaseController()
