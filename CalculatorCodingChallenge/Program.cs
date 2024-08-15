@@ -61,7 +61,7 @@ public class Program
 
             Console.WriteLine("");
             Console.WriteLine("Choose an option from the following list:");
-            Console.WriteLine("\ta - Add");
+            Console.WriteLine("\ta - Add (default)");
             Console.WriteLine("\ts - Subtract");
             Console.WriteLine("\tm - Multiply");
             Console.WriteLine("\td - Divide");

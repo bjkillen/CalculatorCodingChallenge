@@ -6,7 +6,7 @@ namespace CalculatorCodingChallenge.Extensions
 {
     static class KernelExtensions
     {
-        public static T GetDefault<T>(this IKernel kernel)
+        private static T GetDefault<T>(this IKernel kernel)
         {
             return kernel.Get<T>(m => m.Name == null);
         }
