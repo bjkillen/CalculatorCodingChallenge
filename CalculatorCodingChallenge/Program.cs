@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Ninject;
+﻿using Ninject;
 
 using CalculatorCodingChallenge.Controllers;
 using CalculatorCodingChallenge.Exceptions;
@@ -41,12 +40,10 @@ public class Program
             Console.WriteLine("Ctrl+C detected, please press enter to close program");
         };
 
-        StandardKernel kernel = new();
-        kernel.Load(Assembly.GetExecutingAssembly());
+        StandardKernel kernel = KernelSingleton.Instance.kernel;
 
         ICommandLineArgParser commandLineArgParser = kernel.Get<ICommandLineArgParser>();
         IStringInputParser inputParser = kernel.Get<IStringInputParser>();
-        ICalculator calculator = kernel.Get<ICalculator>();
 
         while (keepCalculating)
         {
@@ -60,6 +57,27 @@ public class Program
                 break;
             }
 
+            Console.WriteLine("");
+            Console.WriteLine("Choose an option from the following list:");
+            Console.WriteLine("\ta - Add (default)");
+            Console.WriteLine("\ts - Subtract");
+            Console.WriteLine("\tm - Multiply");
+            Console.WriteLine("\td - Divide");
+
+            string? calculatorTypeInputText = Console.ReadLine();
+
+            // ReadLine will block until user presses enter in console
+            // and stream is read from. Need to break loop if exit key
+            // has been previously pressed
+            if (!keepCalculating)
+            {
+                break;
+            }
+
+            Console.WriteLine("");
+
+            ICalculator calculator = CalculatorFactory.Create(calculatorTypeInputText);
+
             try
             {
                 BaseController baseController = new(commandLineArgParser, inputParser, calculator);
@@ -72,6 +90,10 @@ public class Program
             catch (NoNegativeNumbersException e)
             {
                 Console.WriteLine(e.Message);
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("You cannot divide by zero, please remove zero from input");
             }
             catch (Exception)
             {

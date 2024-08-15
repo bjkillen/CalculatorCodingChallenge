@@ -5,34 +5,34 @@ using CalculatorCodingChallenge.Extensions;
 
 namespace CalculatorCodingChallenge.Models.Calculator
 {
-    public class AddCalculator : Calculator
+    public class DivisionCalculator : Calculator
     {
-        public AddCalculator()
+        public DivisionCalculator()
         {
         }
 
         public override ComputationResult Calculate(int[] nums)
         {
-            int currentSum = 0;
+            int currentResult = 0;
             string formulaBeforeEquals = "";
 
             // Choosing to create formula in same loop as computing sum to
             // save an extra for loop with method like Join
             nums.forEach((num, idx) =>
             {
-                currentSum += num;
-
                 if (idx == 0)
                 {
+                    currentResult = num;
                     formulaBeforeEquals += num.ToString();
                 }
                 else
                 {
-                    formulaBeforeEquals += $"+{num}";
+                    currentResult /= num;
+                    formulaBeforeEquals += $"/{num}";
                 }
             });
 
-            return new ComputationResult(currentSum, formulaBeforeEquals);
+            return new ComputationResult(currentResult, formulaBeforeEquals);
         }
     }
 }

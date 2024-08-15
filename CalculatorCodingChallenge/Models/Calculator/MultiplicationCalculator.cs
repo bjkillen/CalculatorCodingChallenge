@@ -5,22 +5,22 @@ using CalculatorCodingChallenge.Extensions;
 
 namespace CalculatorCodingChallenge.Models.Calculator
 {
-    public class AddCalculator : Calculator
+    public class MultiplicationCalculator : Calculator
     {
-        public AddCalculator()
+        public MultiplicationCalculator()
         {
         }
 
         public override ComputationResult Calculate(int[] nums)
         {
-            int currentSum = 0;
+            int currentResult = 1;
             string formulaBeforeEquals = "";
 
             // Choosing to create formula in same loop as computing sum to
             // save an extra for loop with method like Join
             nums.forEach((num, idx) =>
             {
-                currentSum += num;
+                currentResult *= num;
 
                 if (idx == 0)
                 {
@@ -28,11 +28,11 @@ namespace CalculatorCodingChallenge.Models.Calculator
                 }
                 else
                 {
-                    formulaBeforeEquals += $"+{num}";
+                    formulaBeforeEquals += $"*{num}";
                 }
             });
 
-            return new ComputationResult(currentSum, formulaBeforeEquals);
+            return new ComputationResult(currentResult, formulaBeforeEquals);
         }
     }
 }
