@@ -5,6 +5,7 @@ Restaurant365 Code Challenge - String Calculator from Blaine Killen
 * Visual Studio
 * C#
 * xUnit
+* Ninject
 
 ## Installation
 1. Install the latest version of Visual Studio for [Mac](https://visualstudio.microsoft.com/vs/mac/) or [PC](https://visualstudio.microsoft.com/downloads/)
