@@ -20,14 +20,14 @@ namespace CalculatorCodingChallenge.Models.Calculator
             // save an extra for loop with method like Join
             nums.forEach((num, idx) =>
             {
-                currentResult -= num;
-
                 if (idx == 0)
                 {
+                    currentResult = num;
                     formulaBeforeEquals += currentResult.ToString();
                 }
                 else
                 {
+                    currentResult -= num;
                     formulaBeforeEquals += $"-{num}";
                 }
             });

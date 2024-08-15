@@ -93,7 +93,7 @@ public class Program
             {
                 Console.WriteLine(e.Message);
             }
-            catch (DivideByZeroException e)
+            catch (DivideByZeroException)
             {
                 Console.WriteLine("You cannot divide by zero, please remove zero from input");
             }

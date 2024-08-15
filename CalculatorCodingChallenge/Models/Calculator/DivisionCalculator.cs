@@ -23,18 +23,11 @@ namespace CalculatorCodingChallenge.Models.Calculator
                 if (idx == 0)
                 {
                     currentResult = num;
-                }
-                else
-                {
-                    currentResult /= num;
-                }
-
-                if (idx == 0)
-                {
                     formulaBeforeEquals += currentResult.ToString();
                 }
                 else
                 {
+                    currentResult /= num;
                     formulaBeforeEquals += $"/{num}";
                 }
             });
